@@ -39,22 +39,25 @@
             aguinaldoSema = Math.round((aguinaldoSema + Number.EPSILON)*100)/100;
 
             isssSema = ((salarioDiario*7)+vacaSema)*0.075;
+            isssSema = Math.round((isssSema+Number.EPSILON)*100)/100;
+
             afpSema = ((salarioDiario*7)+vacaSema)*0.0775;
+            afpSema = Math.round((afpSema+Number.EPSILON)*100)/100;
 
             septimo = diaSeptimo * salarioDiario;
             costoNominal = diasLaboral*salarioDiario;
 
             totalSemanal = septimo + costoNominal + vacaSema + aguinaldoSema + isssSema + afpSema;
-
+            totalSemanal = Math.round((totalSemanal+Number.EPSILON)*100)/100;
             //alert(totalSemanal);
 
-            document.getElementById("uno").innerHTML = "$ "+septimo;
-            document.getElementById("dos").innerHTML = "$ "+ costoNominal;
-            document.getElementById("tres").innerHTML ="$ "+ vacaSema;
-            document.getElementById("cuatro").innerHTML = "$ "+aguinaldoSema;
-            document.getElementById("cinco").innerHTML ="$ "+ isssSema;
-            document.getElementById("seis").innerHTML = "$ "+afpSema;
-            document.getElementById("siete").innerHTML ="$ "+totalSemanal;
+            document.getElementById("uno").innerHTML = septimo;
+            document.getElementById("dos").innerHTML =  costoNominal;
+            document.getElementById("tres").innerHTML = vacaSema;
+            document.getElementById("cuatro").innerHTML = aguinaldoSema;
+            document.getElementById("cinco").innerHTML = isssSema;
+            document.getElementById("seis").innerHTML = afpSema;
+            document.getElementById("siete").innerHTML =totalSemanal;
             // Para mostrar los resultados
             resultado.style.display="block";
 
@@ -123,7 +126,7 @@
                     
                     <h4 class="small font-weight-bold">
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>Salario y prestaciones</th>
@@ -133,31 +136,31 @@
                                 <tbody>
                                     <tr>
                                         <td>Séptimo</td>
-                                        <td style="text-align: center;"><label id = "uno">$ </label></td> 
+                                        <td style="text-align: center;">$<label id = "uno"> </label></td> 
                                     </tr>
                                     <tr>
                                         <td>Costo de salario nominal</td>
-                                        <td style="text-align: center;"><label id = "dos">$ </label></td> 
+                                        <td style="text-align: center;">$<label id = "dos"> </label></td> 
                                     </tr>
                                     <tr>
                                         <td>Vacaciones</td>
-                                        <td style="text-align: center;"><label id = "tres">$ </label></td> 
+                                        <td style="text-align: center;">$<label id = "tres"> </label></td> 
                                     </tr>
                                     <tr>
                                         <td>Aguinaldo</td>
-                                        <td style="text-align: center;"><label id = "cuatro">$ </label></td> 
+                                        <td style="text-align: center;">$<label id = "cuatro"> </label></td> 
                                     </tr>
                                     <tr>
                                         <td>Aportación ISSS Patronal</td>
-                                        <td style="text-align: center;"><label id = "cinco">$ </label></td> 
+                                        <td style="text-align: center;">$<label id = "cinco"> </label></td> 
                                     </tr>
                                     <tr>
                                         <td>Aportación AFP Patronal</td>
-                                        <td style="text-align: center;"><label id = "seis">$ </label></td> 
+                                        <td style="text-align: center;">$<label id = "seis"> </label></td> 
                                     </tr>
                                     <tr>
                                         <td style="font-weight: bolder;">Costo Real de Mano de Obra</td>
-                                        <td style="font-weight: bolder; text-align: center;"><label id = "siete">$ </label></td> 
+                                        <td style="font-weight: bolder; text-align: center;">$<label id = "siete"> </label></td> 
                                     </tr>
                                     
                                 </tbody>

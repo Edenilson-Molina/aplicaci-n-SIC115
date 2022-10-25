@@ -73,12 +73,12 @@
         PrecioVentaUnitario = Math.round((PrecioVentaUnitario+Number.EPSILON)*100)/100;
 
         
-        document.getElementById("uno").innerHTML ="$ "+ MD;
-        document.getElementById("dos").innerHTML ="$ "+ MOD;
-        document.getElementById("tres").innerHTML ="$ "+ CIF;
-        document.getElementById("cuatro").innerHTML ="$ "+CostoV ;
-        document.getElementById("cinco").innerHTML = "$ "+MargenUU;
-        document.getElementById("seis").innerHTML = "$ "+PrecioVentaUnitario;
+        document.getElementById("uno").innerHTML = MD;
+        document.getElementById("dos").innerHTML = MOD;
+        document.getElementById("tres").innerHTML = CIF;
+        document.getElementById("cuatro").innerHTML =CostoV ;
+        document.getElementById("cinco").innerHTML = MargenUU;
+        document.getElementById("seis").innerHTML = PrecioVentaUnitario;
         
         // Para mostrar los resultados
         resultado.style.display="block";
@@ -250,7 +250,7 @@
                     
                     <h4 class="small font-weight-bold">
                         <div class="table-responsive">
-                            <table class="table table-striped">
+                            <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th style="text-align: center;">Costos Unitarios</th>
@@ -260,19 +260,19 @@
                                 <tbody>
                                     <tr>
                                         <td>Costo M.D.</td>
-                                        <td style="text-align: center;"><label id = "uno">$ </label></td> 
+                                        <td style="text-align: center;">$<label id = "uno"></label></td> 
                                     </tr>
                                     <tr>
                                         <td>Costo M.O.D.</td>
-                                        <td style="text-align: center;"><label id = "dos">$ </label></td> 
+                                        <td style="text-align: center;">$<label id = "dos"></label></td> 
                                     </tr>
                                     <tr>
                                         <td>C.I.F.</td>
-                                        <td style="text-align: center;"><label id = "tres">$ </label></td> 
+                                        <td style="text-align: center;">$<label id = "tres"></label></td> 
                                     </tr>
                                     <tr>
                                         <td style="font-weight: bolder;">Costo de venta</td>
-                                        <td style="font-weight: bolder; text-align: center;"><label id = "cuatro">$ </label></td> 
+                                        <td style="font-weight: bolder; text-align: center;">$<label id = "cuatro"></label></td> 
                                     </tr>
                                 </tbody>
                             </table>
@@ -281,11 +281,11 @@
                     
                     <div class="card-body" style="display:block; text-align: center;">
                         <h4 class="small font-weight-bold">Margen unitario de utilidad: </h4>
-                        <label id = "cinco">$ </label> 
+                        <label>$</label><label id = "cinco"></label> 
                     </div>
                     <div class="card-body" style="display:block; text-align: center;">
                         <h4 class="small font-weight-bold">Precio de venta unitario: </h4>
-                        <label id = "seis">$ </label>   
+                        <label>$</label><label id = "seis"></label>   
                     </div>
 
                     <a href="costoP" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
