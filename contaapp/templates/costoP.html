@@ -1,0 +1,301 @@
+{% extends "./plantilla_1.html"%} 
+{% load static %}
+
+{%block title%}
+    <title>CONTA STATION - Costo Unitario del Producto</title>
+{%endblock%}
+
+    
+
+{%block body%}
+
+
+<script>
+    function costoP()
+    {
+        var resultado = document.getElementById("divResultados");
+        
+      
+        //variables
+
+        var MD = 0;
+        var MOD = 0;
+        var CIF = 0;
+        var CostoV = 0;
+        var MargenUU = 0;
+        var PrecioVentaUnitario = 0;
+
+        var costosfijostotales = 0;
+        var unidadesproducidas = 0;
+        var costosvariablestotales = 0;
+        var unidadesproducidas = 0;
+
+        var cantidad = parseFloat(document.getElementById("numCantidad").value);
+        var precioProcesador = parseFloat(document.getElementById("txtProcesador").value);
+        var precioTarjetaM = parseFloat(document.getElementById("txtTMadre").value);
+        var precioGabinete = parseFloat(document.getElementById("txtGabinete").value);
+        var precioRAM = parseFloat(document.getElementById("txtRAM").value);
+        var precioiSSD = parseFloat(document.getElementById("txtSSD").value);
+        var precioFuente = parseFloat(document.getElementById("txtFuente").value);
+        var precioGPU = parseFloat(document.getElementById("txtGPU").value);
+        var precioMonitor = parseFloat(document.getElementById("txtMonitor").value);
+        var cantidadHorasRequeridas = parseFloat(document.getElementById("txtHorasMensual").value);
+        var costoHora = parseFloat(document.getElementById("txtCostoHora").value);
+        var porcentajeestimado = parseFloat(document.getElementById("txtGanancia").value);
+        var porcentajeCIF=parseFloat(document.getElementById("txtCIF").value);
+
+        MD = (cantidad*precioProcesador)+
+            (cantidad*precioTarjetaM)+
+            (cantidad*precioGabinete)+
+            (cantidad*precioRAM)+
+            (cantidad*precioiSSD)+
+            (cantidad*precioFuente)+
+            (cantidad*precioGPU)+
+            (cantidad*precioMonitor);
+        MD = MD/cantidad;
+        MD = Math.round((MD+Number.EPSILON)*100)/100;
+
+        MOD = cantidadHorasRequeridas*costoHora;
+        MOD = MOD/cantidad;
+        MOD =Math.round((MOD+Number.EPSILON)*100)/100;
+
+        CIF = 15261.18*(porcentajeCIF/100);
+        CIF = CIF/cantidad;
+        CIF = Math.round((CIF+Number.EPSILON)*100)/100;
+        
+        CostoV = (MD+CIF+MOD);
+        CostoV = Math.round((CostoV+Number.EPSILON)*100)/100;
+
+        MargenUU = CostoV * (porcentajeestimado/100);
+        MargenUU = Math.round((MargenUU+Number.EPSILON)*100)/100;
+
+        PrecioVentaUnitario = (CostoV + MargenUU); 
+        PrecioVentaUnitario = Math.round((PrecioVentaUnitario+Number.EPSILON)*100)/100;
+
+        
+        document.getElementById("uno").innerHTML ="$ "+ MD;
+        document.getElementById("dos").innerHTML ="$ "+ MOD;
+        document.getElementById("tres").innerHTML ="$ "+ CIF;
+        document.getElementById("cuatro").innerHTML ="$ "+CostoV ;
+        document.getElementById("cinco").innerHTML = "$ "+MargenUU;
+        document.getElementById("seis").innerHTML = "$ "+PrecioVentaUnitario;
+        
+        // Para mostrar los resultados
+        resultado.style.display="block";
+
+    }
+</script>
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Costo Unitario del Producto</h1>
+        <button id="bton2" class="btn btn-success" onclick="costoP()">Ingresar orden de producción</button>
+    </div>
+
+    <!-- Contenido especifico -->
+    <div class="row">
+
+        <!-- Content Column izquierda-->
+        <div class="col-lg-6 mb-4">
+
+            <!-- Costos variables -->
+            <div class="card shadow mb-4">
+
+                <form action="" method="get">
+
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Costos Variables</h6>
+                    </div><br>
+                    
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Cantidad a fabricar</h4>
+                        <div>
+                            <input type="number" id = "numCantidad" name = "numCantidad" class="form-control" placeholder = "Cantidad de computadoras" min="0"
+                            required>
+                        </div>   
+                    </div>
+
+                    <h7 style="display:block; text-align: center;" class="m-0 font-weight-bold text-primary">Materiales Directos</h7>
+                    <hr class="sidebar-divider">
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Procesador Intel Core i3 *</h4>
+                        <div>
+                            <input type="text" id = "txtProcesador" name = "txtProcesador" class="form-control" placeholder = "Precio unitario" 
+                            required>
+                        </div>   
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Tarjeta Madre Biostar H410MH *</h4>
+                        <div>
+                            <input type="text" id = "txtTMadre" name = "txtTMadre" class="form-control" placeholder = "Precio unitario" 
+                            required>
+                        </div>   
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Gabinete OGEC02 *</h4>
+                        <div>
+                            <input type="text" id = "txtGabinete" name = "txtGabinete" class="form-control" placeholder = "Precio unitario" 
+                            required>
+                        </div>   
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Memoria RAM Hiperex DDR4 8GB *</h4>
+                        <div>
+                            <input type="text" id = "txtRAM" name = "txtRAM" class="form-control" placeholder = "Precio unitario" 
+                            required>
+                        </div>   
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">PNY SSD 240 GB SATA 3 *</h4>
+                        <div>
+                            <input type="text" id = "txtSSD" name = "txtSSD" class="form-control" placeholder = "Precio unitario" 
+                            required>
+                        </div>   
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Fuente de poder Balam Rush 450W *</h4>
+                        <div>
+                            <input type="text" id = "txtFuente" name = "txtFuente" class="form-control" placeholder = "Precio unitario" 
+                            required>
+                        </div>   
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">GPU colorful GTX1060 *</h4>
+                        <div>
+                            <input type="text" id = "txtGPU" name = "txtGPU" class="form-control" placeholder = "Precio unitario" 
+                            required>
+                        </div>   
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Monitor *</h4>
+                        <div>
+                            <input type="text" id = "txtMonitor" name = "txtMonitor" class="form-control" placeholder = "Precio unitario" 
+                            required>
+                        </div>   
+                    </div>
+                    <h7 style="display:block; text-align: center;" class="m-0 font-weight-bold text-primary">Mano de Obra Directa</h7>
+                    <hr class="sidebar-divider">
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Horas Requeridas *</h4>
+                        <div>
+                            <input type="text" id = "txtHorasMensual" name = "txtHorasMensual" class="form-control" placeholder = "Horas" 
+                            required>
+                        </div>   
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Costo Hora *</h4>
+                        <div>
+                            <input type="text" id = "txtCostoHora" name = "txtCostoHora" class="form-control" placeholder = "Costo/Hora $" 
+                            required>
+                        </div>   
+                    </div>
+                    
+                </form>
+
+            </div>
+
+            <!-- Costos Fijos -->
+            <div class="card shadow mb-4">
+
+                <form action="" method="get">
+
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Costos Fijos</h6>
+                    </div><br>
+                    
+                    <h7 style="display:block; text-align: center;" class="m-0 font-weight-bold text-primary">Costo Indirectos de Fabricación - $15,261.18</h7>
+                    <hr class="sidebar-divider">
+                    
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Porcentaje del CIF Total*</h4>
+                        <div>
+                            <input type="text" id = "txtCIF" name = "txtCIF" class="form-control" placeholder = "Porcentaje sin simbolo %" 
+                            required>
+                        </div>   
+                    </div>
+                       
+                    
+                </form>
+
+            </div>
+
+        </div>
+
+        <!-- Content Column derecha-->
+        <div class="col-lg-6 mb-4" >
+            
+            <div class="card shadow mb-4">
+
+                <form action="" method="get">
+
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Margen de Utilidad</h6>
+                    </div><br>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Porcentaje de ganancia sugerido*</h4>
+                        <div>
+                            <input type="text" id = "txtGanancia" name = "txtGanancia" class="form-control" placeholder = "Porcentaje ganancia esperada sin simbolo %" 
+                            required>
+                        </div>   
+                    </div>
+                    
+                </form> 
+            </div>
+
+            <!-- Costos unitario del producto-->
+            <div id = "divResultados" style="display: none;"  class="card shadow mb-4"  >
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Resultados</h6>
+                </div>
+                <div class="card-body">
+                    
+                    <h4 class="small font-weight-bold">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Costos Unitarios</th>
+                                        <th style="text-align: center;">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Costo M.D.</td>
+                                        <td style="text-align: center;"><label id = "uno">$ </label></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Costo M.O.D.</td>
+                                        <td style="text-align: center;"><label id = "dos">$ </label></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>C.I.F.</td>
+                                        <td style="text-align: center;"><label id = "tres">$ </label></td> 
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bolder;">Costo de venta</td>
+                                        <td style="font-weight: bolder; text-align: center;"><label id = "cuatro">$ </label></td> 
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </h4>
+                    
+                    <div class="card-body" style="display:block; text-align: center;">
+                        <h4 class="small font-weight-bold">Margen unitario de utilidad: </h4>
+                        <label id = "cinco">$ </label> 
+                    </div>
+                    <div class="card-body" style="display:block; text-align: center;">
+                        <h4 class="small font-weight-bold">Precio de venta unitario: </h4>
+                        <label id = "seis">$ </label>   
+                    </div>
+
+                    <a href="costoP" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        class="fas fa-recycle fa-sm text-white-50"></i> Reiniciar</a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+{% endblock %}

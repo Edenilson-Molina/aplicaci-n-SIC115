@@ -1,0 +1,177 @@
+{% extends "./plantilla_1.html"%} 
+{% load static %}
+
+{%block title%}
+    <title>CONTA STATION - Costo M.O.</title>
+{%endblock%}
+
+    
+
+{%block body%}
+
+    <script>
+        function costoMO()
+        {
+            var resultado = document.getElementById("divResultados");
+
+            var parAguinaldo = 0;
+            var aguinaldoSema = 0;
+            var isssSema = 0;
+            var afpSema = 0;
+            var costoNominal = 0;
+            var septimo = 0;
+            var diaSeptimo = 0;
+            var totalSemanal = 0;
+            var salarioDiario = parseFloat(document.getElementById("txtSalarioDiario").value);
+            var diasLaboral = parseFloat(document.getElementById("txtDiasLaorbal").value);
+            var anioLaboral = parseFloat(document.getElementById("txtAñosLaboral").value);
+
+            diaSeptimo = 7 - diasLaboral;
+            
+            var vacaSema = ((salarioDiario*15)+((salarioDiario*15)*0.30))/52;
+            vacaSema = Math.round((vacaSema + Number.EPSILON)*100)/100;
+
+            if(anioLaboral >= 1 && anioLaboral < 3) parAguinaldo = 10;
+            if(anioLaboral >= 3 && anioLaboral < 10) parAguinaldo =15;
+            if(anioLaboral >= 10) parAguinaldo = 18;
+
+            aguinaldoSema = (parAguinaldo * salarioDiario)/52;
+            aguinaldoSema = Math.round((aguinaldoSema + Number.EPSILON)*100)/100;
+
+            isssSema = ((salarioDiario*7)+vacaSema)*0.075;
+            afpSema = ((salarioDiario*7)+vacaSema)*0.0775;
+
+            septimo = diaSeptimo * salarioDiario;
+            costoNominal = diasLaboral*salarioDiario;
+
+            totalSemanal = septimo + costoNominal + vacaSema + aguinaldoSema + isssSema + afpSema;
+
+            //alert(totalSemanal);
+
+            document.getElementById("uno").innerHTML = "$ "+septimo;
+            document.getElementById("dos").innerHTML = "$ "+ costoNominal;
+            document.getElementById("tres").innerHTML ="$ "+ vacaSema;
+            document.getElementById("cuatro").innerHTML = "$ "+aguinaldoSema;
+            document.getElementById("cinco").innerHTML ="$ "+ isssSema;
+            document.getElementById("seis").innerHTML = "$ "+afpSema;
+            document.getElementById("siete").innerHTML ="$ "+totalSemanal;
+            // Para mostrar los resultados
+            resultado.style.display="block";
+
+        }
+    </script>
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Costo Real de Mano de Obra Semanal</h1>
+        
+    </div>
+
+    <!-- Contenido especifico -->
+    <div class="row">
+
+        <!-- Content Column izquierda-->
+        <div class="col-lg-6 mb-4">
+
+            <!-- Project Card Example -->
+            <div class="card shadow mb-4">
+
+                <form action="" method="get">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-primary">Ingreso</h6>
+                    </div><br>
+
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Salario diario nominal *</h4>
+                        <div>
+                            <input type="text" id = "txtSalarioDiario" name = "txtSalarioDiario" class="form-control" placeholder = "Salario diario" 
+                            required>
+                        </div>   
+                    </div>
+                    
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Dias laborados semanalmente *</h4>
+                        <div>
+                            <input type="text" id = "txtDiasLaorbal" name = "txtDiasLaboral" class="form-control" placeholder = "Días laborados" 
+                            required>
+                        </div>   
+                    </div>
+
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Años laborados *</h4>
+                        <div>
+                            <input type="text" id = "txtAñosLaboral" name = "txtAñosLaboral" class="form-control" placeholder = "Años laborados" 
+                            required>
+                        </div>   
+                    </div>
+                </form>
+                
+                <button id="bton2" class="btn btn-success" onclick="costoMO()">Ingresar</button>
+            </div>
+
+            
+        </div>
+
+        <!-- Content Column derecha-->
+        <div  id = "divResultados"class="col-lg-6 mb-4" style="display:none;">
+
+            <!-- Illustrations Finanzas-->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Resultados</h6>
+                </div>
+                <div class="card-body">
+                    
+                    <h4 class="small font-weight-bold">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Salario y prestaciones</th>
+                                        <th style="text-align: center;">Valor semanal</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Séptimo</td>
+                                        <td style="text-align: center;"><label id = "uno">$ </label></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Costo de salario nominal</td>
+                                        <td style="text-align: center;"><label id = "dos">$ </label></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Vacaciones</td>
+                                        <td style="text-align: center;"><label id = "tres">$ </label></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Aguinaldo</td>
+                                        <td style="text-align: center;"><label id = "cuatro">$ </label></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Aportación ISSS Patronal</td>
+                                        <td style="text-align: center;"><label id = "cinco">$ </label></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Aportación AFP Patronal</td>
+                                        <td style="text-align: center;"><label id = "seis">$ </label></td> 
+                                    </tr>
+                                    <tr>
+                                        <td style="font-weight: bolder;">Costo Real de Mano de Obra</td>
+                                        <td style="font-weight: bolder; text-align: center;"><label id = "siete">$ </label></td> 
+                                    </tr>
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </h4>
+                    <a href="costoMO" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        class="fas fa-recycle fa-sm text-white-50"></i> Reiniciar</a>   
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+{% endblock %}

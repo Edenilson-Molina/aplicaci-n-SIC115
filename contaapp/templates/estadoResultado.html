@@ -1,0 +1,92 @@
+{% extends "./plantilla_1.html"%} 
+{% load static %}
+
+{%block title%}
+    <title>CONTA STATION - Estado de Resultado</title>
+{%endblock%}
+
+    
+
+{%block body%}
+
+    <script>
+        function estadoResultado()
+        {   
+            var resultado = document.getElementById("divResultados");
+            var debe = 1000;
+            var haber = 1000;
+
+            document.getElementById("uno").innerHTML = "$ "+ debe;
+            document.getElementById("dos").innerHTML = "$ "+  haber;
+         
+            // Para mostrar los resultados
+            resultado.style.display="block";
+
+        }
+    </script>
+
+    <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Estado de Resultado</h1>
+        
+    </div>
+
+    <!-- Contenido especifico -->
+    <div class="row">
+
+        <!-- Content Column izquierda-->
+        <div class="col-lg-6 mb-4">
+
+            <!-- Project Card Example -->
+            <div class="card shadow mb-4">
+                
+                <button id="bton2" class="btn btn-success" onclick="estadoResultado()">Mostrar Estado de Resultado</button>
+            </div>
+
+            
+        </div>
+
+        <!-- Content Column derecha-->
+        <div  id = "divResultados"class="col-lg-6 mb-4" style="display:none;">
+
+            <!-- Illustrations Finanzas-->
+            <div class="card shadow mb-4">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Resultados</h6>
+                </div>
+                <div class="card-body">
+                    
+                    <h4 class="small font-weight-bold">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>saldos</th>
+                                        <th style="text-align: center;">Valor de periodo</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>debe</td>
+                                        <td style="text-align: center;"><label id = "uno">$ </label></td> 
+                                    </tr>
+                                    <tr>
+                                        <td>haber</td>
+                                        <td style="text-align: center;"><label id = "dos">$ </label></td> 
+                                    </tr>
+                                   
+                                    
+                                </tbody>
+                            </table>
+                        </div>
+                    </h4>
+                    <a href="estadoResultado" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                        class="fas fa-recycle fa-sm text-white-50"></i> Reiniciar</a>   
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    
+
+{% endblock %}
