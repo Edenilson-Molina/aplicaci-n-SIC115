@@ -32,6 +32,7 @@ urlpatterns = [
     path('ventas',views.ventas),
     path('compras',views.compras),
     path('gastos',views.gastos),
+    path('ingresarOrden/',views.ingresarOrden),
     
 ]
 

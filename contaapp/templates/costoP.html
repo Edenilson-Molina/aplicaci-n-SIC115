@@ -80,6 +80,14 @@
         document.getElementById("cinco").innerHTML = MargenUU;
         document.getElementById("seis").innerHTML = PrecioVentaUnitario;
         
+
+        document.getElementById("txtUno").value = MD;
+        document.getElementById("txtDos").value = MOD;
+        document.getElementById("txtTres").value = CIF;
+        document.getElementById("txtCuatro").value = CostoV;
+        document.getElementById("txtCantidad").value = cantidad;
+        
+
         // Para mostrar los resultados
         resultado.style.display="block";
 
@@ -248,49 +256,70 @@
                 </div>
                 <div class="card-body">
                     
-                    <h4 class="small font-weight-bold">
-                        <div class="table-responsive">
-                            <table class="table table-bordered">
-                                <thead>
-                                    <tr>
-                                        <th style="text-align: center;">Costos Unitarios</th>
-                                        <th style="text-align: center;">Valor</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>Costo M.D.</td>
-                                        <td style="text-align: center;">$<label id = "uno"></label></td> 
-                                    </tr>
-                                    <tr>
-                                        <td>Costo M.O.D.</td>
-                                        <td style="text-align: center;">$<label id = "dos"></label></td> 
-                                    </tr>
-                                    <tr>
-                                        <td>C.I.F.</td>
-                                        <td style="text-align: center;">$<label id = "tres"></label></td> 
-                                    </tr>
-                                    <tr>
-                                        <td style="font-weight: bolder;">Costo de venta</td>
-                                        <td style="font-weight: bolder; text-align: center;">$<label id = "cuatro"></label></td> 
-                                    </tr>
-                                </tbody>
-                            </table>
+                    <form action="/ingresarOrden/" method="post">{% csrf_token%}
+                        <h4 class="small font-weight-bold">
+                            <div class="table-responsive">
+                                <table class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th style="text-align: center;">Costos Unitarios</th>
+                                            <th style="text-align: center;">Valor</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Costo M.D.</td>
+                                            <td style="text-align: center;">$
+                                                <label id = "uno" name = "uno"></label>
+                                                <input  style="display: none;"type="text" id = "txtUno" name = "txtUno" class="form-control">
+                                            </td> 
+                                        </tr>
+                                        <tr>
+                                            <td>Costo M.O.D.</td>
+                                            <td style="text-align: center;">$
+                                                <label id = "dos" name = "dos"></label>
+                                                <input  style="display: none;"type="text" id = "txtDos" name = "txtDos" class="form-control">
+                                            </td> 
+                                        </tr>
+                                        <tr>
+                                            <td>C.I.F.</td>
+                                            <td style="text-align: center;">$
+                                                <label id = "tres" name = "tres"></label>
+                                                <input style="display: none;" type="text" id = "txtTres" name = "txtTres" class="form-control">
+                                            </td> 
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: bolder;">Costo de venta</td>
+                                            <td style="font-weight: bolder; text-align: center;">$
+                                                <label id = "cuatro" name = "cuatro"></label>
+                                                <input style="display: none;" type="text" id = "txtCuatro" name = "txtCuatro" class="form-control">
+                                            </td> 
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </h4>
+                        
+                        <div class="card-body" style="display:block; text-align: center;">
+                            <h4 class="small font-weight-bold">Margen unitario de utilidad: </h4>
+                            <label>$</label><label id = "cinco" name = "cinco"></label> 
                         </div>
-                    </h4>
-                    
-                    <div class="card-body" style="display:block; text-align: center;">
-                        <h4 class="small font-weight-bold">Margen unitario de utilidad: </h4>
-                        <label>$</label><label id = "cinco"></label> 
-                    </div>
-                    <div class="card-body" style="display:block; text-align: center;">
-                        <h4 class="small font-weight-bold">Precio de venta unitario: </h4>
-                        <label>$</label><label id = "seis"></label>   
-                    </div>
+                        <div class="card-body" style="display:block; text-align: center;">
+                            <h4 class="small font-weight-bold">Precio de venta unitario: </h4>
+                            <label>$</label><label id = "seis" name = "seis"></label>   
+                        </div> 
+                        <input style="display: none;" type="text" id = "txtCantidad" name = "txtCantidad" class="form-control">
 
+                        <div class="card-body" style="text-align: center;">
+                            <button id="bton2" class="btn btn-success" type="submit">Guardar orden de fabricación</button><br>
+                        </div>   
+                    </form>
+                    
+                    <br><br>
                     <a href="costoP" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
                         class="fas fa-recycle fa-sm text-white-50"></i> Reiniciar</a>
                 </div>
+                
             </div>
 
         </div>
