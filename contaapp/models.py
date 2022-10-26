@@ -73,7 +73,7 @@ class AuthUserUserPermissions(models.Model):
 class Clasificacion(models.Model):
     id_clas = models.IntegerField(db_column='ID_CLAS', primary_key=True)  # Field name made lowercase.       
     nomclas = models.CharField(db_column='NOMCLAS', max_length=250)  # Field name made lowercase.
-    valor = models.FloatField(db_column='VALOR', blank=True, null=True)  # Field name made lowercase.        
+    valor = models.FloatField(db_column='VALOR', blank=True)  # Field name made lowercase.        
 
     class Meta:
         managed = False
@@ -84,8 +84,8 @@ class Cuenta(models.Model):
     idcuenta = models.IntegerField(db_column='IDCUENTA', primary_key=True)  # Field name made lowercase.     
     idrubro = models.ForeignKey('Rubro', models.DO_NOTHING, db_column='IDRUBRO')  # Field name made lowercase.
     nomcuenta = models.CharField(db_column='NOMCUENTA', max_length=250)  # Field name made lowercase.        
-    debecuenta = models.FloatField(db_column='DEBECUENTA', blank=True, null=True)  # Field name made lowercase.
-    habercuenta = models.FloatField(db_column='HABERCUENTA', blank=True, null=True)  # Field name made lowercase.
+    debecuenta = models.FloatField(db_column='DEBECUENTA', blank=True)  # Field name made lowercase.
+    habercuenta = models.FloatField(db_column='HABERCUENTA', blank=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -141,7 +141,7 @@ class Rubro(models.Model):
     idrubro = models.IntegerField(db_column='IDRUBRO', primary_key=True)  # Field name made lowercase.       
     id_clas = models.ForeignKey(Clasificacion, models.DO_NOTHING, db_column='ID_CLAS')  # Field name made lowercase.
     nomrubro = models.CharField(db_column='NOMRUBRO', max_length=250)  # Field name made lowercase.
-    valor_rubro = models.FloatField(db_column='VALOR_RUBRO', blank=True, null=True)  # Field name made lowercase.
+    valor_rubro = models.FloatField(db_column='VALOR_RUBRO', blank=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
@@ -152,8 +152,8 @@ class Subcuenta(models.Model):
     idsubcuenta = models.IntegerField(db_column='IDSUBCUENTA', primary_key=True)  # Field name made lowercase.
     idcuenta = models.ForeignKey(Cuenta, models.DO_NOTHING, db_column='IDCUENTA')  # Field name made lowercase.
     nomsubcuenta = models.CharField(db_column='NOMSUBCUENTA', max_length=250)  # Field name made lowercase.  
-    debe_subcuenta = models.FloatField(db_column='DEBE_SUBCUENTA', blank=True, null=True)  # Field name made lowercase.
-    haber_subcuenta = models.FloatField(db_column='HABER_SUBCUENTA', blank=True, null=True)  # Field name made lowercase.
+    debe_subcuenta = models.FloatField(db_column='DEBE_SUBCUENTA', blank=True)  # Field name made lowercase.
+    haber_subcuenta = models.FloatField(db_column='HABER_SUBCUENTA', blank=True)  # Field name made lowercase.
 
     class Meta:
         managed = False
