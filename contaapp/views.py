@@ -87,7 +87,6 @@ def ingresarOrden(request):
         materiaDirecta = float(request.POST['txtUno'])
         manoObraDirecta = float(request.POST['txtDos'])
         costoIndirecto = float(request.POST['txtTres'])
-
         materiaDirecta = materiaDirecta*cantidadP
         manoObraDirecta = manoObraDirecta*cantidadP
         costoIndirecto = costoIndirecto*cantidadP
@@ -104,8 +103,63 @@ def ingresarOrden(request):
         objetoCIF = Cuenta.objects.get(idcuenta = 4103)
         objetoCIF.debecuenta += costoIndirecto
         objetoCIF.save()
+        
         messages.success(request,'¡Orden de fabricación registrada con éxito!')
     except Exception as e:
         messages.error(request,'No fue posible registrar orden de fabricación')
 
     return redirect('/costoP')
+
+def ingresarVenta(request):    
+
+    try:
+        montoVenta = float(request.POST['txtuno'])
+    
+        IVADebito = float(request.POST['txtdos'])
+
+        tipoVenta = request.POST['txttres']
+        
+    
+        objetoCuentaCobrar = Cuenta.objects.get(idcuenta= 1102)
+        objetoCaja = Subcuenta.objects.get(idsubcuenta=110101)
+        if (tipoVenta == "contado"):      
+            objetoCaja.debe_subcuenta += montoVenta
+            objetoCaja.save()
+        if (tipoVenta == "credito"):      
+            objetoCuentaCobrar.debecuenta += montoVenta
+            objetoCuentaCobrar.save()
+        
+        objetoIVADebito = Cuenta.objects.get(idcuenta=2104)
+        objetoIVADebito.debecuenta += IVADebito
+        objetoIVADebito.save()
+        messages.success(request,'¡venta registrada!')
+    except Exception as e:
+        messages.error(request,'No fue posible registrar venta')
+    return redirect('/ventas')
+
+def ingresarCompra(request):    
+
+    try:
+        montoCompra = float(request.POST['txtuno'])
+    
+        IVACredito = float(request.POST['txtdos'])
+
+        tipoVenta = request.POST['txttres']
+        
+    
+        objetoCuentaPagar = Cuenta.objects.get(idcuenta= 2101)
+        objetoCaja = Subcuenta.objects.get(idsubcuenta=110101)
+        if (tipoVenta == "contado"):      
+            objetoCaja.haber_subcuenta+= montoCompra
+            objetoCaja.save()
+        if (tipoVenta == "credito"):      
+            objetoCuentaPagar.habercuenta += montoCompra
+            objetoCuentaPagar.save()
+        
+        objetoIVACredito = Cuenta.objects.get(idcuenta=1107)
+        objetoIVACredito.habercuenta += IVACredito
+        objetoIVACredito.save()
+        messages.success(request,'¡compra registrada!')
+    except Exception as e:
+        messages.error(request,'No fue posible registrar compra')
+    return redirect('/compras')

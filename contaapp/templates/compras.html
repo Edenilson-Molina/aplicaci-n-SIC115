@@ -4,42 +4,150 @@
 {%block title%}
     <title>CONTA STATION - Compras</title>
 {%endblock%}
+{%block body%}
+    
+<script>
+    function ingresarCompra()
+    {
+        var resultado = document.getElementById("divResultados");
+
+        var ivaDebito = 0;
+        var montoVenta = parseFloat(document.getElementById("txtMontoV").value);
+        var tipoVenta = "";
+        //var radiobutton = parseFloat(document.getElementsByName("r1").value);      
+        
+        $("input[name='r1']" ).on('change', function () {
+        valor = $(this).val();
+        alert(valor);
+        });
+        if(valor == 1) { document.getElementById("tres").innerHTML = tipoVenta = "contado";  document.getElementById("txttres").value = tipoVenta;}
+        if(valor == 2) { document.getElementById("tres").innerHTML = tipoVenta = "credito";  document.getElementById("txttres").value = tipoVenta;}
+        ivaDebito = montoVenta * 0.13;
+     
+
+        document.getElementById("uno").innerHTML = montoVenta;
+        document.getElementById("dos").innerHTML =  ivaDebito;
+
+        document.getElementById("txtuno").value = montoVenta;
+        document.getElementById("txtdos").value =  ivaDebito;
+        
+        
+        
+        
+        
+        // Para mostrar los resultados
+        resultado.style.display="block";
+
+    }
+</script>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Ingreso de Compras</h1>
+    
+</div>
+
+<!-- Contenido especifico -->
+<div class="row">
+
+    <!-- Content Column izquierda-->
+    <div class="col-lg-6 mb-4">
+
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
+
+            <form action="" method="get">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Ingreso</h6>
+                </div><br>
+
+                <div class="card-body">
+                    <h4 class="small font-weight-bold">Monto de la compra *</h4>
+                    <div>
+                        <input type="text" id = "txtMontoV" name = "txtMontoV" class="form-control" placeholder = "$" 
+                        required>
+                    </div>   
+                </div>
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Tipo de Transaccion</h6>
+                </div><br>
+                <div>
+                    &nbsp;&nbsp;&nbsp;<input type="radio" id="r1" name="r1" value="1"
+                           checked>
+                    <label for="r1">Contado</label>
+                    &nbsp;&nbsp;&nbsp;<input type="radio" id="r2" name="r1" value="2"
+                           checked>
+                    <label for="r1">Credito</label>
+                
+                </div>
+                  
+                  
+                
+            </form>
+            
+            <button id="bton4" class="btn btn-success" onclick="ingresarCompra()">Ingresar Compra</button>
+        </div>
+
+        
+    </div>        
+        <div id = "divResultados" style="display: none;"  class="card shadow mb-4"  >
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Resultados</h6>
+            </div>
+            <div class="card-body">
+                
+                <form action="/ingresarCompra/" method="post">{% csrf_token%}
+                    <h4 class="small font-weight-bold">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Costos Unitarios</th>
+                                        <th style="text-align: center;">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Monto de la compra</td>
+                                        <td style="text-align: center;">$
+                                            <label id = "uno" name = "uno"></label>
+                                            <input  style="display: none;"type="text" id = "txtuno" name = "txtuno" class="form-control">
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Valor de IVA Credito</td>
+                                        <td style="text-align: center;">$
+                                            <label id = "dos" name = "dos"></label>
+                                            <input  style="display: none;"type="text" id = "txtdos" name = "txtdos" class="form-control">
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Tipo de Compra</td>
+                                        <td style="text-align: center;">
+                                            <label id = "tres" name = "tres"></label> 
+                                            <input  style="display: none;"type="text" id = "txttres" name = "txttres" class="form-control">
+                                        </td> 
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </h4>
+                    <div class="card-body" style="text-align: center;">
+                        <button id="bton4" class="btn btn-success" type="submit">Guardar venta</button><br>
+                    </div>  
+
+                </form>
+                
+                <br><br>
+                <a href="compras" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="fas fa-recycle fa-sm text-white-50"></i> Reiniciar</a>
+            </div>
+            
+        </div>
+
+    </div>
+</div>
 
     
-
-{%block body%}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 {% endblock %}

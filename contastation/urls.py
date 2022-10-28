@@ -33,6 +33,8 @@ urlpatterns = [
     path('compras',views.compras),
     path('gastos',views.gastos),
     path('ingresarOrden/',views.ingresarOrden),
+    path('ingresarVenta/',views.ingresarVenta),
+    path('ingresarCompra/',views.ingresarCompra),
     
 ]
 
