@@ -185,10 +185,10 @@ def ingresarVenta(request):
         objetoCuentaCobrar = Cuenta.objects.get(idcuenta= 1102)
         objetoCaja = Subcuenta.objects.get(idsubcuenta=110101)
         if (tipoVenta == "contado"):      
-            objetoCaja.debe_subcuenta += montoVenta
+            objetoCaja.debe_subcuenta += (montoVenta+IVADebito)
             objetoCaja.save()
         if (tipoVenta == "credito"):      
-            objetoCuentaCobrar.debecuenta += montoVenta
+            objetoCuentaCobrar.debecuenta += (montoVenta+IVADebito)
             objetoCuentaCobrar.save()
         
         objetoVentas = Cuenta.objects.get(idcuenta= 5101)
@@ -217,17 +217,17 @@ def ingresarCompra(request):
         objetoCuentaPagar = Cuenta.objects.get(idcuenta= 2101)
         objetoCaja = Subcuenta.objects.get(idsubcuenta=110101)
         if (tipoVenta == "contado"):      
-            objetoCaja.haber_subcuenta+= montoCompra
+            objetoCaja.haber_subcuenta+= (montoCompra+IVACredito)
             objetoCaja.save()
         if (tipoVenta == "credito"):      
-            objetoCuentaPagar.habercuenta += montoCompra
+            objetoCuentaPagar.habercuenta += (montoCompra+IVACredito)
             objetoCuentaPagar.save()
         
         objetoCompras = Cuenta.objects.get(idcuenta=4104)
         objetoCompras.debecuenta += montoCompra
         objetoCompras.save()
         objetoIVACredito = Cuenta.objects.get(idcuenta=1107)
-        objetoIVACredito.habercuenta += IVACredito
+        objetoIVACredito.debecuenta += IVACredito
         objetoIVACredito.save()
         # //CAMBIOS fin
         messages.success(request,'¡compra registrada!')
