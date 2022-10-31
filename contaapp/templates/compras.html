@@ -16,10 +16,16 @@
         var tipoVenta = "";
         //var radiobutton = parseFloat(document.getElementsByName("r1").value);      
         
+        //CAMBIOS inicio
+        
         $("input[name='r1']" ).on('change', function () {
-        valor = $(this).val();
-        alert(valor);
+        
+        alert("Desea cambiar el tipo de la transaccion?");
         });
+        valor = $("input[type='radio'][name='r1']:checked").val();
+        
+        //CAMBIOS fin
+
         if(valor == 1) { document.getElementById("tres").innerHTML = tipoVenta = "contado";  document.getElementById("txttres").value = tipoVenta;}
         if(valor == 2) { document.getElementById("tres").innerHTML = tipoVenta = "credito";  document.getElementById("txttres").value = tipoVenta;}
         ivaDebito = montoVenta * 0.13;

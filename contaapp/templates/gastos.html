@@ -5,41 +5,186 @@
     <title>CONTA STATION - Gastos</title>
 {%endblock%}
 
-    
-
 {%block body%}
+    
+<script>
+    function ingresarGasto()
+    {
+        var resultado = document.getElementById("divResultados");
 
+        var ivaDebito = 0;
+        var montoGasto = parseFloat(document.getElementById("txtMontoV").value);
+        var tipoGasto = "";
+        var tipoPagoGasto = "";
+        //var radiobutton = parseFloat(document.getElementsByName("r1").value);      
+        
+        //CAMBIOS inicio
+        
+        $("input[name='r1']" ).on('change', function () {
+        
+        alert("Desea cambiar el tipo del gasto?");
+        });
+        valor1 = $("input[type='radio'][name='r1']:checked").val();
+        
+        //CAMBIOS fin
 
+        if(valor1 == 1) { document.getElementById("dos").innerHTML = tipoGasto = "administracion";  document.getElementById("txtdos").value = tipoGasto;}
+        if(valor1 == 2) { document.getElementById("dos").innerHTML = tipoGasto = "ventas";  document.getElementById("txtdos").value = tipoGasto;}
+        if(valor1 == 3) { document.getElementById("dos").innerHTML = tipoGasto = "depreciacion";  document.getElementById("txtdos").value = tipoGasto;}
+        if(valor1 == 4) { document.getElementById("dos").innerHTML = tipoGasto = "alquiler";  document.getElementById("txtdos").value = tipoGasto;}
+       
+        $("input[name='r2']" ).on('change', function () {
+        
+        alert("Desea cambiar el tipo de pago del gasto?");
+        });
+        valor2 = $("input[type='radio'][name='r2']:checked").val();
 
+        if(valor2 == 1) { document.getElementById("tres").innerHTML = tipoPagoGasto = "caja";  document.getElementById("txttres").value = tipoPagoGasto;}
+        if(valor2 == 2) { document.getElementById("tres").innerHTML = tipoPagoGasto = "retencion";  document.getElementById("txttres").value = tipoPagoGasto;}
+        if(valor2 == 3) { document.getElementById("tres").innerHTML = tipoPagoGasto = "depreciacion";  document.getElementById("txttres").value = tipoPagoGasto;}
+        
 
+        document.getElementById("uno").innerHTML = montoGasto;
 
+        document.getElementById("txtuno").value = montoGasto;
+        
+        
+        
+        
+        
+        
+        // Para mostrar los resultados
+        resultado.style.display="block";
 
+    }
+</script>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Ingreso de Gastos</h1>
+    
+</div>
 
+<!-- Contenido especifico -->
+<div class="row">
 
+    <!-- Content Column izquierda-->
+    <div class="col-lg-6 mb-4">
 
+        <!-- Project Card Example -->
+        <div class="card shadow mb-4">
 
+            <form action="" method="get">
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Ingreso</h6>
+                </div><br>
 
+                <div class="card-body">
+                    <h4 class="small font-weight-bold">Monto del gasto *</h4>
+                    <div>
+                        <input type="text" id = "txtMontoV" name = "txtMontoV" class="form-control" placeholder = "$" 
+                        required>
+                    </div>   
+                </div>
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Tipo de gastos</h6>
+                </div><br>
+                <div>
+                    &nbsp;<input type="radio" id="r1" name="r1" value="1"
+                           checked>
+                    <label for="r1">Gasto administracion</label>
+                    &nbsp;<input type="radio" id="r2" name="r1" value="2"
+                           checked>
+                    <label for="r1">Gasto de ventas</label>
+                    &nbsp;<input type="radio" id="r3" name="r1" value="3"
+                           checked>
+                    <label for="r1">Gasto de depreciacion</label>
+                    &nbsp;<input type="radio" id="r4" name="r1" value="4"
+                           checked>
+                    <label for="r1">Gasto de alquiler</label>
+                
+                </div>
+                <div class="card-header py-3">
+                    <h6 class="m-0 font-weight-bold text-primary">Tipo de pago del gasto</h6>
+                </div><br>  
+                <div>
+                    &nbsp;&nbsp;&nbsp;<input type="radio" id="r5" name="r2" value="1"
+                           checked>
+                    <label for="r1">Caja</label>
+                    &nbsp;&nbsp;&nbsp;<input type="radio" id="r6" name="r2" value="2"
+                           checked>
+                    <label for="r1">Retencion</label>
+                    &nbsp;&nbsp;&nbsp;<input type="radio" id="r7" name="r2" value="3"
+                           checked>
+                    <label for="r1">Depreciacion</label>
+                                    
+                </div>  
+                
+            </form>
+            
+            <button id="bton4" class="btn btn-success" onclick="ingresarGasto()">Ingresar Gasto</button>
+        </div>
 
+        
+    </div>        
+        <div id = "divResultados" style="display: none;"  class="card shadow mb-4"  >
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Resultados</h6>
+            </div>
+            <div class="card-body">
+                
+                <form action="/ingresarGasto/" method="post">{% csrf_token%}
+                    <h4 class="small font-weight-bold">
+                        <div class="table-responsive">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th style="text-align: center;">Datos</th>
+                                        <th style="text-align: center;">Valor</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Monto del gasto</td>
+                                        <td style="text-align: center;">$
+                                            <label id = "uno" name = "uno"></label>
+                                            <input  style="display: none;"type="text" id = "txtuno" name = "txtuno" class="form-control">
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Tipo de gasto</td>
+                                        <td style="text-align: center;">
+                                            <label id = "dos" name = "dos"></label>
+                                            <input  style="display: none;"type="text" id = "txtdos" name = "txtdos" class="form-control">
+                                        </td> 
+                                    </tr>
+                                    <tr>
+                                        <td>Tipo pago del gasto</td>
+                                        <td style="text-align: center;">
+                                            <label id = "tres" name = "tres"></label> 
+                                            <input  style="display: none;"type="text" id = "txttres" name = "txttres" class="form-control">
+                                        </td> 
+                                    </tr>
+                                   
+                                </tbody>
+                            </table>
+                        </div>
+                    </h4>
+                    <div class="card-body" style="text-align: center;">
+                        <button id="bton4" class="btn btn-success" type="submit">Guardar gasto</button><br>
+                    </div>  
 
+                </form>
+                
+                <br><br>
+                <a href="gastos" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i
+                    class="fas fa-recycle fa-sm text-white-50"></i> Reiniciar</a>
+            </div>
+            
+        </div>
 
+    
+</div>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
 
 {% endblock %}

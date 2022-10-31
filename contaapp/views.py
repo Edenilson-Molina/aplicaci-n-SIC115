@@ -119,7 +119,7 @@ def ingresarVenta(request):
 
         tipoVenta = request.POST['txttres']
         
-    
+        # //CAMBIOS inicio
         objetoCuentaCobrar = Cuenta.objects.get(idcuenta= 1102)
         objetoCaja = Subcuenta.objects.get(idsubcuenta=110101)
         if (tipoVenta == "contado"):      
@@ -129,9 +129,14 @@ def ingresarVenta(request):
             objetoCuentaCobrar.debecuenta += montoVenta
             objetoCuentaCobrar.save()
         
+        objetoVentas = Cuenta.objects.get(idcuenta= 5101)
+        objetoVentas.habercuenta += montoVenta
+        objetoVentas.save()
         objetoIVADebito = Cuenta.objects.get(idcuenta=2104)
-        objetoIVADebito.debecuenta += IVADebito
+        objetoIVADebito.habercuenta += IVADebito
         objetoIVADebito.save()
+
+        # //CAMBIOS fin
         messages.success(request,'¡venta registrada!')
     except Exception as e:
         messages.error(request,'No fue posible registrar venta')
@@ -146,7 +151,7 @@ def ingresarCompra(request):
 
         tipoVenta = request.POST['txttres']
         
-    
+        # //CAMBIOS inicio
         objetoCuentaPagar = Cuenta.objects.get(idcuenta= 2101)
         objetoCaja = Subcuenta.objects.get(idsubcuenta=110101)
         if (tipoVenta == "contado"):      
@@ -156,10 +161,67 @@ def ingresarCompra(request):
             objetoCuentaPagar.habercuenta += montoCompra
             objetoCuentaPagar.save()
         
+        objetoCompras = Cuenta.objects.get(idcuenta=4104)
+        objetoCompras.debecuenta += montoCompra
+        objetoCompras.save()
         objetoIVACredito = Cuenta.objects.get(idcuenta=1107)
         objetoIVACredito.habercuenta += IVACredito
         objetoIVACredito.save()
+        # //CAMBIOS fin
         messages.success(request,'¡compra registrada!')
     except Exception as e:
         messages.error(request,'No fue posible registrar compra')
     return redirect('/compras')
+
+
+
+def ingresarGasto(request): 
+    try:
+        montoGasto = float(request.POST['txtuno'])
+    
+        tipoGasto = request.POST['txtdos']
+
+        tipoPagoGasto = request.POST['txttres']
+
+        objetoGastoAdministra = Cuenta.objects.get(idcuenta=4201)
+        objetoGastoVenta = Cuenta.objects.get(idcuenta=4202)
+        objetoGastoDepre = Cuenta.objects.get(idcuenta=4203)
+        objetoGastoAlquiler = Cuenta.objects.get(idcuenta=4204)
+        
+        if (tipoGasto == "administracion"):
+            objetoGastoAdministra.debecuenta += montoGasto
+            objetoGastoAdministra.save()
+
+        if (tipoGasto == "ventas"): 
+            objetoGastoVenta.debecuenta += montoGasto
+            objetoGastoVenta.save()
+        
+        if(tipoGasto == "depreciacion"):
+            objetoGastoDepre.debecuenta += montoGasto
+            objetoGastoDepre.save()
+
+        if(tipoGasto == "alquiler"):
+            objetoGastoAlquiler.debecuenta += montoGasto
+            objetoGastoAlquiler.save()
+
+        objetoCaja = Subcuenta.objects.get(idsubcuenta=110101)
+        objetoRetencion = Cuenta.objects.get(idcuenta =2107)
+        objetoDepreciacion = Cuenta.objects.get(idcuenta =1202)
+
+        
+        if (tipoPagoGasto == "caja"):
+            objetoCaja.haber_subcuenta+= montoGasto
+            objetoCaja.save()
+
+        if (tipoPagoGasto == "retencion"):
+            objetoRetencion.habercuenta += montoGasto
+            objetoRetencion.save()
+
+        if (tipoPagoGasto == "depreciacion"):
+            objetoDepreciacion.habercuenta += montoGasto
+            objetoDepreciacion.save()           
+
+        messages.success(request,'¡Gasto registrado!')
+    except Exception as e:
+        messages.error(request,'No fue posible registrar compra')
+    return redirect('/gastos')
