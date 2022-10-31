@@ -1,5 +1,6 @@
 from asyncio.windows_events import NULL
 import datetime
+from threading import local
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from .models import *
@@ -69,7 +70,66 @@ def estadoCapital(request):
     return render(request, "estadoCapital.html")
 
 def balanceGeneral(request):
-    return render(request, "balanceGeneral.html")
+    mes = devuelveMes()
+    subAcuenta()
+
+
+    activoCorriente= []
+    activoNoCorriente = []
+    pasivoCorriente= [] 
+    pasivoNoCorriente = [] 
+
+    totalActivoCorriente= 0.0
+    totalActivoNoCorriente= 0.0
+    activos = 0.0
+    pasivos = 0.0
+    capital = 0.0
+
+    totalPasivoCorriente= 0.0
+    totalPasivoNoCorriente = 0.0
+
+    for i in Cuenta.objects.filter(idrubro = 11):
+        activoCorriente.append({'idcuenta':i.idcuenta,'nomcuenta': i.nomcuenta,'saldo': i.debecuenta - i.habercuenta,})
+        totalActivoCorriente += (i.debecuenta - i.habercuenta)
+    for i in Cuenta.objects.filter(idrubro = 12):
+        activoNoCorriente.append({'idcuenta':i.idcuenta,'nomcuenta': i.nomcuenta,'saldo': i.debecuenta - i.habercuenta,})
+        totalActivoNoCorriente += (i.debecuenta - i.habercuenta)
+    for i in Cuenta.objects.filter(idrubro = 21):
+        pasivoCorriente.append({'idcuenta':i.idcuenta,'nomcuenta': i.nomcuenta,'saldo':i.habercuenta - i.debecuenta,})
+        totalPasivoCorriente += (i.habercuenta - i.debecuenta)
+    for i in Cuenta.objects.filter(idrubro = 22):
+        pasivoNoCorriente.append({'idcuenta':i.idcuenta,'nomcuenta': i.nomcuenta,'saldo':i.habercuenta - i.debecuenta,})
+        totalPasivoNoCorriente += (i.habercuenta - i.debecuenta)
+
+    activos = totalActivoCorriente + totalActivoNoCorriente
+    pasivos = totalPasivoCorriente + totalPasivoNoCorriente
+    pasivos = round(pasivos, 2)
+    capital = activos-pasivos
+
+    
+    return render(request, "balanceGeneral.html",{"mes":mes,"activoCorriente":activoCorriente,
+    "totalActivoCorriente":totalActivoCorriente,"activoNoCorriente":activoNoCorriente,
+    "activos":activos,"pasivoCorriente":pasivoCorriente,"pasivoNoCorriente":pasivoNoCorriente,"pasivos":pasivos, "capital":capital})
+
+def subAcuenta():
+    efectivo = Cuenta.objects.get(idcuenta=1101)
+    caja = Subcuenta.objects.get(idsubcuenta = 110101)
+    caja.debe_subcuenta = caja.debe_subcuenta - caja.haber_subcuenta
+    banco = Subcuenta.objects.get(idsubcuenta = 110102)
+    banco.debe_subcuenta = banco.debe_subcuenta - banco.haber_subcuenta
+    efectivo.debecuenta = caja.debe_subcuenta + banco.debe_subcuenta
+    efectivo.save()
+
+    propiedad = Cuenta.objects.get(idcuenta = 1201)
+    terreno = Subcuenta.objects.get(idsubcuenta = 120101)
+    local = Subcuenta.objects.get(idsubcuenta = 120102)
+    mobiliario = Subcuenta.objects.get(idsubcuenta = 120103)
+    terreno.debe_subcuenta = terreno.debe_subcuenta - terreno.haber_subcuenta
+    local.debe_subcuenta = local.debe_subcuenta - local.haber_subcuenta
+    mobiliario.debe_subcuenta = mobiliario.debe_subcuenta - mobiliario.haber_subcuenta
+    propiedad.debecuenta = terreno.debe_subcuenta + local.debe_subcuenta + mobiliario.debe_subcuenta
+    propiedad.save()
+    return 0
 
 def compras(request):
     return render(request, "compras.html")
