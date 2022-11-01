@@ -44,29 +44,29 @@
                                 <tbody>
                                     <tr>
                                         <td style="font-weight:bolder;text-align: left;">VENTAS TOTALES</td>
-                                        <td style="text-align: center;">{{ventaTotal.habercuenta}}</td> 
+                                        <td style="text-align: center;">$ {{ventaTotal.habercuenta}}</td> 
                                     </tr>
                                     {% for c in deudora %}
                                     <tr>
                                         {% if c.idcuenta == 4106 or c.idcuenta == 4107 %}
                                         {%if c.debecuenta > 0%}
                                         <td style="text-align: left;">&nbsp;&nbsp;{{c.nomcuenta}}</td>
-                                        <td>({{c.debecuenta}})</td> 
+                                        <td>($ {{c.debecuenta}})</td> 
                                         {%endif%}
                                         {%endif%}   
                                     </tr>
                                     {%endfor%}
                                     <tr>
                                         <td style="font-weight:bolder;text-align: left;">VENTAS NETAS</td>
-                                        <td style="text-align: center;">{{ventasNetas}}</td> 
+                                        <td style="text-align: center;">$ {{ventasNetas}}</td> 
                                     </tr>
                                     <tr>
                                         <td style="font-weight:bolder;text-align: left;">COSTO DE VENTAS</td>
-                                        <td style="text-align: center;">({{costoVentas}})</td> 
+                                        <td style="text-align: center;">($ {{costoVentas}})</td> 
                                     </tr>
                                     <tr>
                                         <td style="font-weight:bolder;text-align: left;">UTILIDAD BRUTA EN VENTAS</td>
-                                        <td style="text-align: center;">{{utilidadBruta}}</td> 
+                                        <td style="text-align: center;">$ {{utilidadBruta}}</td> 
                                     </tr>
                                     <tr>
                                         <td style="text-align: left;">GASTOS DE OPERACIÓN</td>
@@ -76,19 +76,19 @@
                                     <tr>
                                         {%if c.debecuenta > 0%}
                                         <td style="text-align: left;"> &nbsp;&nbsp;{{c.nomcuenta}}</td>
-                                        <td>({{c.debecuenta}})</td> 
+                                        <td>($ {{c.debecuenta}})</td> 
                                         {%endif%}
                                           
                                     </tr>
                                     {%endfor%}
                                     <tr>
                                         <td style="font-weight:bolder;text-align: left;">TOTAL DE GASTOS DE OPERACIÓN</td>
-                                        <td style="text-align: center;">({{totalGastos}})</td> 
+                                        <td style="text-align: center;">($ {{totalGastos}})</td> 
                                     </tr>
                                     <tr>
                                         
                                         <td style="font-weight:bolder;text-align: left;">UTILIDAD ANTES DE IMPUESTO</td>
-                                        <td style="text-align: center;">{{utilidadAntesImpuesto}}</td> 
+                                        <td style="text-align: center;">$ {{utilidadAntesImpuesto}}</td> 
                                     </tr>
                                     
                                 </tbody>

@@ -42,6 +42,7 @@ def balanceCompro(request):
 def estadoResultado(request):
     mes = devuelveMes()
     ventaTotal = Cuenta.objects.get(idcuenta = 5101)
+    objetoUtilidad = Cuenta.objects.get(idcuenta = 3103)
     deudora = []
     gastos = []
     ventasNetas = ventaTotal.habercuenta
@@ -61,13 +62,20 @@ def estadoResultado(request):
         totalGastos += i.debecuenta
     utilidadBruta = ventasNetas - costoVentas
     utilidadAntesImpuesto = utilidadBruta - totalGastos
+    objetoUtilidad.habercuenta = utilidadAntesImpuesto
+    objetoUtilidad.save()
+
     return render(request, "estadoResultado.html",{"mes":mes,"ventaTotal":ventaTotal,"deudora":deudora,
     "ventasNetas":ventasNetas,"costoVentas":costoVentas,"utilidadBruta":utilidadBruta,
     "gastos":gastos,"totalGastos":totalGastos,"utilidadAntesImpuesto":utilidadAntesImpuesto})
 
 
 def estadoCapital(request):
-    return render(request, "estadoCapital.html")
+    mes = devuelveMes()
+    capital = Cuenta.objects.get(idcuenta = 3101)
+    utilidad = Cuenta.objects.get(idcuenta = 3103)
+    total = capital.habercuenta+utilidad.habercuenta
+    return render(request, "estadoCapital.html",{"mes":mes,"capital":capital,"utilidad":utilidad,"total":total})
 
 def balanceGeneral(request):
     mes = devuelveMes()
@@ -102,9 +110,11 @@ def balanceGeneral(request):
         totalPasivoNoCorriente += (i.habercuenta - i.debecuenta)
 
     activos = totalActivoCorriente + totalActivoNoCorriente
+    activos = round(activos,2)
     pasivos = totalPasivoCorriente + totalPasivoNoCorriente
     pasivos = round(pasivos, 2)
     capital = activos-pasivos
+    capital = round(capital,2)
 
     
     return render(request, "balanceGeneral.html",{"mes":mes,"activoCorriente":activoCorriente,
@@ -164,8 +174,11 @@ def ingresarOrden(request):
         objetoCIF = Cuenta.objects.get(idcuenta = 4103)
         objetoCIF.debecuenta += costoIndirecto
         objetoCIF.save()
-        
-        
+
+        objetoCaja = Subcuenta.objects.get(idsubcuenta =110101)
+        objetoCaja.haber_subcuenta += (manoObraDirecta + costoIndirecto)
+        objetoCaja.save()
+          
         messages.success(request,'¡Orden de fabricación registrada con éxito!')
     except Exception as e:
         messages.error(request,'No fue posible registrar orden de fabricación')

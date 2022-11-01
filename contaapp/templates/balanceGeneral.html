@@ -43,12 +43,12 @@
                             </thead>
                             <tbody>
                                 <tr>
-                                    <td style="font-weight:bolder;text-align: left;text-decoration: underline;">ACTIVOS</td>
+                                    <td style="font-weight:bolder;text-align: left;text-decoration: underline;">ACTIVO</td>
                                     <td style="text-align: center;"></td>
                                     <td style="text-align: center;"></td> 
                                 </tr>
                                 <tr>
-                                    <td style="font-weight:bolder;text-align: left;">ACTIVOS CORRIENTES</td>
+                                    <td style="font-weight:bolder;text-align: left;">ACTIVO CORRIENTES</td>
                                     <td style="text-align: center;"></td>
                                     <td style="text-align: center;"></td> 
                                 </tr>
@@ -56,13 +56,13 @@
                                 <tr>
                                     {%if c.saldo != 0%}
                                     <td style="text-align: left;">&nbsp;&nbsp;{{c.nomcuenta}}</td>
-                                    <td>{{c.saldo}}</td>
+                                    <td>$ {{c.saldo}}</td>
                                     <td></td>  
                                     {%endif%}      
                                 </tr>
                                 {%endfor%}
                                 <tr>
-                                    <td style="font-weight:bolder;text-align: left;">ACTIVOS NO CORRIENTES</td>
+                                    <td style="font-weight:bolder;text-align: left;">ACTIVO NO CORRIENTES</td>
                                     <td style="text-align: center;"></td>
                                     <td style="text-align: center;"></td> 
                                 </tr>
@@ -70,23 +70,23 @@
                                 <tr>
                                     {%if c.saldo != 0%}
                                     <td style="text-align: left;">&nbsp;&nbsp;{{c.nomcuenta}}</td>
-                                    <td>{{c.saldo}}</td>
+                                    <td>$ {{c.saldo}}</td>
                                     <td></td>  
                                     {%endif%}      
                                 </tr>
                                 {%endfor%}
                                 <tr>
                                     <td style="font-weight:bolder;text-align: left;">Total Activos</td>
-                                    <td style="font-weight:bolder;text-align: center;">{{activos}}</td>
+                                    <td style="font-weight:bolder;text-align: center;">$ {{activos}}</td>
                                     <td style="text-align: center;"></td> 
                                 </tr>
                                 <tr>
-                                    <td style="font-weight:bolder;text-align: left;text-decoration: underline;">PASIVOS</td>
+                                    <td style="font-weight:bolder;text-align: left;text-decoration: underline;">PASIVO</td>
                                     <td style="text-align: center;"></td>
                                     <td style="text-align: center;"></td> 
                                 </tr>
                                 <tr>
-                                    <td style="font-weight:bolder;text-align: left;">PASIVOS CORRIENTES</td>
+                                    <td style="font-weight:bolder;text-align: left;">PASIVO CORRIENTES</td>
                                     <td style="text-align: center;"></td>
                                     <td style="text-align: center;"></td> 
                                 </tr>
@@ -95,12 +95,12 @@
                                     {%if c.saldo != 0%}
                                     <td style="text-align: left;">&nbsp;&nbsp;{{c.nomcuenta}}</td>
                                     <td></td>
-                                    <td>{{c.saldo}}</td>  
+                                    <td>$ {{c.saldo}}</td>  
                                     {%endif%}      
                                 </tr>
                                 {%endfor%}
                                 <tr>
-                                    <td style="font-weight:bolder;text-align: left;">PASIVOS NO CORRIENTES</td>
+                                    <td style="font-weight:bolder;text-align: left;">PASIVO NO CORRIENTES</td>
                                     <td style="text-align: center;"></td>
                                     <td style="text-align: center;"></td> 
                                 </tr>
@@ -109,17 +109,17 @@
                                     {%if c.saldo != 0%}
                                     <td style="text-align: left;">&nbsp;&nbsp;{{c.nomcuenta}}</td>
                                     <td></td>
-                                    <td>{{c.saldo}}</td>  
+                                    <td>$ {{c.saldo}}</td>  
                                     {%endif%}      
                                 </tr>
                                 {%endfor%}
                                 <tr>
                                     <td style="font-weight:bolder;text-align: left;">Total Pasivos</td>
                                     <td style="text-align: center;"></td>
-                                    <td style="font-weight:bolder;text-align: center;">{{pasivos}}</td> 
+                                    <td style="font-weight:bolder;text-align: center;">$ {{pasivos}}</td> 
                                 </tr>
                                 <tr>
-                                    <td style="font-weight:bolder;text-align: left;text-decoration: underline;">PATROMONIO</td>
+                                    <td style="font-weight:bolder;text-align: left;text-decoration: underline;">PATRIMONIO</td>
                                     <td style="text-align: center;"></td>
                                     <td style="text-align: center;"></td> 
                                 </tr>
@@ -131,17 +131,17 @@
                                 <tr>
                                     <td style="text-align: left;">&nbsp;&nbsp;Capital Social</td>
                                     <td></td>
-                                    <td>{{capital}}</td> 
+                                    <td>$ {{capital}}</td> 
                                 </tr>
                                 <tr>
                                     <td style="font-weight:bolder;text-align: left;">Total Patrimonio</td>
                                     <td style="text-align: center;"></td>
-                                    <td style="font-weight:bolder;text-align: center;">{{capital}}</td> 
+                                    <td style="font-weight:bolder;text-align: center;">$ {{capital}}</td> 
                                 </tr>
                                 <tr>
                                     <td style="font-weight:bolder;text-align: left;">TOTALES</td>
-                                    <td style="font-weight:bolder;text-align: center;">{{activos}}</td>
-                                    <td style="font-weight:bolder;text-align: center;">{{activos}}</td> 
+                                    <td style="font-weight:bolder;text-align: center;">$ {{activos}}</td>
+                                    <td style="font-weight:bolder;text-align: center;">$ {{activos}}</td> 
                                 </tr>
                                 
                             </tbody>
