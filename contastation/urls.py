@@ -36,6 +36,9 @@ urlpatterns = [
     path('ingresarVenta/',views.ingresarVenta),
     path('ingresarCompra/',views.ingresarCompra),
     path('ingresarGasto/',views.ingresarGasto),
+    path('eliminar',views.eliminar),
+    path('reiniciar/',views.reiniciar),
+
     
 ]
 

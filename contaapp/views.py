@@ -20,6 +20,9 @@ def costoMO(request):
 def costoP(request):
     return render(request, "costoP.html")
 
+def eliminar(request):
+    return render(request, "eliminar.html")
+
 def devuelveMes():
     mes = datetime.date.today().month
     if(mes == 1): mes = 'Enero'
@@ -76,6 +79,12 @@ def estadoCapital(request):
     utilidad = Cuenta.objects.get(idcuenta = 3103)
     total = capital.habercuenta+utilidad.habercuenta
     return render(request, "estadoCapital.html",{"mes":mes,"capital":capital,"utilidad":utilidad,"total":total})
+
+#def balanceComprobacion(request):
+#    objetoCaja = Subcuenta.objects.get(idsubcuenta = 110101 )
+#    debeCaja = objetoCaja.debe_subcuenta - objetoCaja.haber_subcuenta
+    
+#    return render(request, "balanceComprobacion.html",{"debeCaja": debeCaja})
 
 def balanceGeneral(request):
     mes = devuelveMes()
@@ -300,3 +309,26 @@ def ingresarGasto(request):
     except Exception as e:
         messages.error(request,'No fue posible registrar compra')
     return redirect('/gastos')
+
+def reiniciar(request): 
+    try:
+        tipoReinicio = request.POST['txttres']
+        for i in [1101,1102,1103,1104,1105,1106,1107,1108,1201,1202,2101,2102,2103,2104,2105,2106,2107,2201,2202,3101,3102,3103,4101,4102,4103,4104,4105,4106,4107,4201,4202,4203,4204,4205,5101,5102,5103,5104,6101]:            
+            objetoCuenta = Cuenta.objects.get(idcuenta= i)
+            if (tipoReinicio == "cuentas"):
+                objetoCuenta.habercuenta = 0
+                objetoCuenta.debecuenta = 0
+                objetoCuenta.save()
+
+        for i in [110101,110102,110501,110502,110503,110601,120101,120102,120103,120201,120202,120203,210701,210702,210703,210704,210705]:            
+            objetoCuenta = Subcuenta.objects.get(idsubcuenta= i)
+            if (tipoReinicio == "subcuentas"):
+                objetoCuenta.haber_subcuenta = 0
+                objetoCuenta.debe_subcuenta = 0
+                objetoCuenta.save()    
+            
+        
+        messages.success(request,'¡Reinicio realizado!')
+    except Exception as e:
+        messages.error(request,'No fue posible realizar el reinicio')
+    return redirect('/eliminar')
