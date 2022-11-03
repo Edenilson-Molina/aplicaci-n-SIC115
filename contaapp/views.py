@@ -12,7 +12,11 @@ def login(request):
     return render(request, "login.html")
 
 def index(request):
-    return render(request, "index.html")
+    capital = Cuenta.objects.get(idcuenta = 3101)
+    utilidad = Cuenta.objects.get(idcuenta = 3103)
+    venta = Cuenta.objects.get(idcuenta =5101)
+    total = capital.habercuenta+utilidad.habercuenta
+    return render(request, "index.html",{"total":total,"venta":venta})
 
 def costoMO(request):
     return render(request, "costoMO.html")
