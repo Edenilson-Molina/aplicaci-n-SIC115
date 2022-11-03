@@ -330,8 +330,23 @@ def reiniciar(request):
                 objetoCuenta.haber_subcuenta = 0
                 objetoCuenta.debe_subcuenta = 0
                 objetoCuenta.save()    
-            
-        
+
+        caja = Subcuenta.objects.get(idsubcuenta = 110101)    
+        local = Subcuenta.objects.get(idsubcuenta = 120102)
+        mobiliario = Subcuenta.objects.get(idsubcuenta = 120103)
+        capital = Cuenta.objects.get(idcuenta = 3101)
+
+        #Inicializando cuentas para periodo
+        caja.debe_subcuenta = 34025
+        local.debe_subcuenta = 70000
+        mobiliario.debe_subcuenta =10975
+        capital.habercuenta = 115000
+
+        caja.save()
+        local.save()
+        mobiliario.save()
+        capital.save()
+
         messages.success(request,'¡Reinicio realizado!')
     except Exception as e:
         messages.error(request,'No fue posible realizar el reinicio')
